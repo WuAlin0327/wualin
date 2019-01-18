@@ -182,8 +182,8 @@
     </div>
     
     <div class="post-body post-content">
-        <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque hendrerit lacus ut purus iaculis feugiat. Sed nec tempor elit, quis aliquam neque. Curabitur sed diam eget dolor fermentum semper at eu lorem.</p>
-</blockquote>
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_queryset_or_tuple</span><span class="params">(self, model_class, request, *args, **kwargs)</span>:</span></span><br><span class="line">    <span class="comment"># 根据gender 或 depart字符串，去自己对应的Model类中找到字段对象，再根据字段对象获取关联数据</span></span><br><span class="line">    field_obj = model_class._meta.get_field(self.field)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取关联数据</span></span><br><span class="line">    <span class="keyword">if</span> isinstance(field_obj, ForeignKey) <span class="keyword">or</span> isinstance(field_obj, ManyToManyField):</span><br><span class="line">        <span class="comment"># FK ,M2M</span></span><br><span class="line">        db_condition = self.get_db_condition(request, *args, **kwargs)</span><br><span class="line">        print(field_obj.related_model.objects.filter(**db_condition))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 获取choice</span></span><br><span class="line">        print(field_obj.choices)</span><br></pre></td></tr></table></figure>
+
     </div>
     
     <div class="post-footer">
