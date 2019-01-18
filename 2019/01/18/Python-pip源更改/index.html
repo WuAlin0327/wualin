@@ -31,7 +31,7 @@
     <!--Title-->
 
 
-<title>Python使用PIL模块生成随机验证码 | wualin的个人博客</title>
+<title>Python pip源更改 | wualin的个人博客</title>
 
 
     <link rel="alternate" href="/atom.xml" title="wualin的个人博客" type="application/atom+xml">
@@ -104,7 +104,7 @@
                     <ul class="menu">
                         
                             <li role="presentation" class="text-center">
-                                <a href="/"><i class="fa "></i>Home</a>
+                                <a href="/wualin"><i class="fa "></i>Home</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
@@ -136,9 +136,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Python使用PIL模块生成随机验证码">
+        <h1 id="Python pip源更改">
             
-	            Python使用PIL模块生成随机验证码
+	            Python pip源更改
             
         </h1>
         <div class="post-meta">
@@ -182,11 +182,25 @@
     </div>
     
     <div class="post-body post-content">
-        <p>PIL模块的安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install pillow</span><br></pre></td></tr></table></figure></p>
-<p>生成随机验证码图片<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">import random</span><br><span class="line">from PIL import Image, ImageDraw, ImageFont</span><br><span class="line">from io import BytesIO</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def random_str():</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    生成随机字符</span><br><span class="line">    :return:随机字符</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    random_int = str(random.randint(0,9))</span><br><span class="line">    random_up = chr(random.randint(65,90))</span><br><span class="line">    random_down = chr(random.randint(97,122))</span><br><span class="line">    retu_str = random.choice([random_int,random_up,random_down])</span><br><span class="line">    return retu_str</span><br><span class="line"></span><br><span class="line">def rndColor():</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    生成随机颜色</span><br><span class="line">    :return: 随机rbg颜色</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    return (random.randint(0, 255), random.randint(10, 255), random.randint(64, 255))</span><br><span class="line">def get_verify_code_img(filename):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    生成随机验证码图片，保存到内存，通过HttpResponse发送到前端</span><br><span class="line">    :param request: 生成session</span><br><span class="line">    :return:  内存中的图片</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line"></span><br><span class="line">    # 创建图片与画笔</span><br><span class="line">    img = Image.new(mode=&apos;RGB&apos;,size=(186,34),color=rndColor())</span><br><span class="line">    draw = ImageDraw.Draw(img)</span><br><span class="line">    verify = &apos;&apos;</span><br><span class="line"></span><br><span class="line">    # 字体样式</span><br><span class="line">    font = ImageFont.truetype(font=&apos;font1.ttf&apos;,size=20)</span><br><span class="line"></span><br><span class="line">    #生成六位数验证码</span><br><span class="line">    for i in range(6):</span><br><span class="line">        char = random_str()</span><br><span class="line">        verify += char</span><br><span class="line">        draw.text([i*20+50,5],char,font=font,fill=rndColor())</span><br><span class="line"></span><br><span class="line">    f = open(filename&apos;,&apos;wb&apos;)</span><br><span class="line">    img.save(f,&apos;png&apos;)</span><br></pre></td></tr></table></figure></p>
-<p>还可以给图片验证码添加燥点与燥线</p>
-<p>将下面代码添加到get_verify_code_img中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># width=270</span><br><span class="line"># height=40</span><br><span class="line"># for i in range(10):</span><br><span class="line">#     x1=random.randint(0,width)</span><br><span class="line">#     x2=random.randint(0,width)</span><br><span class="line">#     y1=random.randint(0,height)</span><br><span class="line">#     y2=random.randint(0,height)</span><br><span class="line">#     draw.line((x1,y1,x2,y2),fill=get_random_color())</span><br><span class="line">#</span><br><span class="line"># for i in range(100):</span><br><span class="line">#     draw.point([random.randint(0, width), random.randint(0, height)], fill=get_random_color())</span><br><span class="line">#     x = random.randint(0, width)</span><br><span class="line">#     y = random.randint(0, height)</span><br><span class="line">#     draw.arc((x, y, x + 4, y + 4), 0, 90, fill=get_random_color())</span><br></pre></td></tr></table></figure></p>
-<p>调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get_verify_code_img(&apos;验证码.png&apos;)</span><br></pre></td></tr></table></figure></p>
+        <h3 id="将pip源设置为阿里源"><a href="#将pip源设置为阿里源" class="headerlink" title="将pip源设置为阿里源"></a>将pip源设置为阿里源</h3><ul>
+<li>windows</li>
+</ul>
+<ol>
+<li>打开文件资源管理器(文件夹地址中)</li>
+<li>地址栏上面输入 %appdata%</li>
+<li>在这里面新建一个文件夹pip</li>
+<li>在pip文件夹里面新建一个文件叫做 pip.ini,内容如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[global]</span><br><span class="line">timeout = 6000</span><br><span class="line">index-url = https://mirrors.aliyun.com/pypi/simple/</span><br><span class="line">trusted-host = mirrors.aliyun.com</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>Mac or Linux</li>
+</ul>
+<ol>
+<li>cd ~</li>
+<li>mkdir ~/.pip</li>
+<li>vi ~/.pip/pip.conf</li>
+<li>编辑内容：与 window内容一模一样</li>
+</ol>
 
     </div>
     
@@ -205,9 +219,9 @@
 <div class="article-nav prev-next-wrap clearfix">
     
     
-        <a href="/wualin/2019/01/18/hello-world/" class="next-post btn btn-default" title="Hello World">
+        <a href="/wualin/2019/01/18/Python使用PIL模块生成随机验证码/" class="next-post btn btn-default" title="Python使用PIL模块生成随机验证码">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">Hello World</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">Python使用PIL模块生成随机验证码</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -250,7 +264,7 @@
     <div class="widget">
         <h3 class="title">Table of Contents</h3>
         
-            <p>暂无目录</p>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#将pip源设置为阿里源"><span class="toc-text">将pip源设置为阿里源</span></a></li></ol>
         
     </div>
 </aside>
